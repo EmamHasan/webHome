@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emam Hasan - Cloud • DevOps • Security</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(-45deg, #0f0f23, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.15;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            transform: rotate(45deg);
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #10ac84, #00d2d3);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation-delay: 4s;
+        }
+
+        .shape:nth-child(4) {
+            bottom: 30%;
+            right: 10%;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, #5f27cd, #341f97);
+            border-radius: 50%;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        .main-content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #ff6b6b, #10ac84, #5f27cd);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+            animation: gradientShift 3s ease infinite, glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.4)); }
+            to { filter: drop-shadow(0 0 40px rgba(255, 107, 107, 0.4)); }
+        }
+
+        .welcome-text {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .tagline {
+            font-size: 1.8rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+            margin: 0 auto 50px auto;
+            line-height: 1.7;
+            animation: slideInUp 1s ease-out 0.5s both;
+            text-align: center;
+        }
+
+        .cta-section {
+            animation: slideInUp 1s ease-out 1s both;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .contact-btn {
+            padding: 15px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .contact-btn:hover::before {
+            left: 100%;
+        }
+
+        .email-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .linkedin-btn {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .articles-btn {
+            background: linear-gradient(45deg, #10ac84, #00d2d3);
+            box-shadow: 0 4px 15px rgba(16, 172, 132, 0.3);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .realtime-clock {
+            display: flex;
+            gap: 20px;
+            margin: 40px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .clock-item {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(15px);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 120px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+        }
+
+        .clock-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00d4ff;
+            display: block;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .clock-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .system-monitor {
+            width: 100%;
+            max-width: 500px;
+            height: 120px;
+            margin: 30px auto;
+            position: relative;
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 212, 255, 0.4);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .monitor-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 25px 15px;
+            animation: gridPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .heartbeat-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            height: 60px;
+        }
+
+        .heartbeat-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(0, 212, 255, 0.3);
+            transform: translateY(-50%);
+        }
+
+        .pulse-wave {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            transform: translateY(-50%);
+        }
+
+        .pulse-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.8));
+        }
+
+        .pulse-path {
+            fill: none;
+            stroke: #00d4ff;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: pulseDraw 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseDraw {
+            0% {
+                stroke-dasharray: 0 1000;
+                filter: drop-shadow(0 0 5px rgba(0, 212, 255, 0.6));
+                stroke-width: 2;
+            }
+            30% {
+                stroke-dasharray: 300 1000;
+                filter: drop-shadow(0 0 15px rgba(0, 212, 255, 1));
+                stroke-width: 4;
+            }
+            70% {
+                stroke-dasharray: 600 1000;
+                filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.8));
+                stroke-width: 3;
+            }
+            100% {
+                stroke-dasharray: 1000 1000;
+                filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.6));
+                stroke-width: 2;
+            }
+        }
+
+        .floating-pulse {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #00d4ff;
+            border-radius: 50%;
+            animation: floatingPulse 2s ease-in-out infinite;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+        }
+
+        @keyframes floatingPulse {
+            0% {
+                left: -10px;
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            20% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            80% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            100% {
+                left: calc(100% - 10px);
+                opacity: 0;
+                transform: scale(0.5);
+            }
+        }
+
+        .monitor-text {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            color: #00d4ff;
+            font-size: 0.8rem;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .monitor-status {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #10ac84;
+            font-size: 0.75rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #10ac84;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: statusBlink 1s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(16, 172, 132, 0.8);
+        }
+
+        @keyframes statusBlink {
+            0%, 50% { 
+                opacity: 1; 
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(16, 172, 132, 0.8);
+            }
+            51%, 100% { 
+                opacity: 0.4; 
+                transform: scale(0.8);
+                box-shadow: 0 0 5px rgba(16, 172, 132, 0.4);
+            }
+        }
+
+        .features-preview {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(15px);
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+
+        .feature-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3));
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                min-height: 100vh;
+            }
+            
+            .logo { 
+                font-size: 2.2rem; 
+                margin-bottom: 10px;
+            }
+
+            .welcome-text {
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+            
+            .tagline { 
+                font-size: 1.2rem; 
+                margin-bottom: 25px;
+                line-height: 1.4;
+            }
+            
+            .description { 
+                font-size: 0.95rem; 
+                margin-bottom: 30px;
+                padding: 0 15px;
+                line-height: 1.6;
+                max-width: 95%;
+            }
+            
+            .realtime-clock {
+                margin: 25px 0;
+                gap: 15px;
+            }
+            
+            .clock-item { 
+                padding: 15px 12px; 
+                min-width: 85px; 
+            }
+            
+            .clock-number { 
+                font-size: 1.3rem; 
+            }
+            
+            .system-monitor {
+                max-width: 95%;
+                height: 100px;
+                margin: 25px auto;
+            }
+            
+            .contact-buttons { 
+                flex-direction: column; 
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 25px;
+            }
+            
+            .contact-btn {
+                width: 200px;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .features-preview {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin-top: 35px;
+                padding: 0 10px;
+            }
+            
+            .feature-card {
+                padding: 20px;
+                margin: 0 5px;
+            }
+            
+            .feature-icon {
+                font-size: 2rem;
+                margin-bottom: 12px;
+            }
+            
+            .feature-title {
+                font-size: 1.1rem;
+                margin-bottom: 8px;
+            }
+            
+            .feature-desc {
+                font-size: 0.85rem;
+            }
+            
+            .shape {
+                display: none;
+            }
+            
+            .monitor-text {
+                font-size: 0.7rem;
+                left: 15px;
+                bottom: 8px;
+            }
+            
+            .monitor-status {
+                font-size: 0.65rem;
+                right: 15px;
+                top: 8px;
+            }
+
+            .heartbeat-container {
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo { 
+                font-size: 1.8rem; 
+            }
+
+            .welcome-text {
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+            }
+            
+            .tagline { 
+                font-size: 1.1rem; 
+                padding: 0 10px;
+            }
+            
+            .description { 
+                font-size: 0.9rem;
+                padding: 0 10px;
+                line-height: 1.5;
+            }
+            
+            .clock-number { 
+                font-size: 1.1rem; 
+            }
+            
+            .contact-btn {
+                width: 180px;
+                padding: 10px 18px;
+                font-size: 0.85rem;
+            }
+            
+            .feature-card {
+                margin: 0;
+                padding: 18px;
+            }
+            
+            .system-monitor {
+                height: 80px;
+                max-width: 90%;
+            }
+
+            .realtime-clock {
+                gap: 10px;
+            }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .contact-btn:active {
+                transform: translateY(-2px) scale(0.98);
+            }
+            
+            .feature-card:active {
+                transform: translateY(-5px);
+            }
+            
+            .particle {
+                display: none;
+            }
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00d4ff;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat 4s linear infinite;
+            box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .tech-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="tech-grid"></div>
+    
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <div class="welcome-text">Welcome to the Matrix</div>
+            <div class="logo">⚡ Emam Hasan</div>
+            <div class="tagline">Breaking Systems to Build Better Solutions</div>
+            <div class="description">
+                Hey there! I'm a DevOps engineer who thrives on turning complex problems into elegant solutions. 
+                By day, I architect cloud infrastructure and automate everything in sight. By night, I explore 
+                cybersecurity landscapes and occasionally break things (in controlled environments, of course). 
+                Ready to build something awesome together?
+            </div>
+
+            <div class="realtime-clock" id="realtimeClock">
+                <div class="clock-item">
+                    <span class="clock-number" id="currentTime">00:00:00.<span id="milliseconds">00</span></span>
+                    <span class="clock-label">System Time</span>
+                </div>
+            </div>
+
+            <div class="system-monitor">
+                <div class="monitor-grid"></div>
+                <div class="heartbeat-container">
+                    <div class="heartbeat-line"></div>
+                    <div class="pulse-wave">
+                        <svg class="pulse-svg" viewBox="0 0 400 40">
+                            <path class="pulse-path" d="M0,20 L50,20 L60,5 L70,35 L75,10 L80,30 L85,15 L95,25 L120,20 L130,5 L140,35 L145,10 L150,30 L155,15 L165,25 L400,20"/>
+                        </svg>
+                    </div>
+                    <div class="floating-pulse" style="top: 50%; transform: translateY(-50%);"></div>
+                </div>
+                <div class="monitor-status"><span class="status-dot"></span>SYSTEMS ONLINE</div>
+                <div class="monitor-text">NEURAL NETWORK ACTIVE</div>
+            </div>
+
+            <div class="cta-section">
+                <div class="contact-buttons">
+                    <a href="mailto:emam@example.com" class="contact-btn email-btn">
+                        📧 Connect
+                    </a>
+                    <a href="https://linkedin.com/in/emamhasan" class="contact-btn linkedin-btn" target="_blank">
+                        💼 LinkedIn
+                    </a>
+                    <a href="#articles" class="contact-btn articles-btn">
+                        📝 Blog
+                    </a>
+                </div>
+            </div>
+
+            <div class="features-preview">
+                <div class="feature-card">
+                    <span class="feature-icon">☁️</span>
+                    <div class="feature-title">Cloud Architecture</div>
+                    <div class="feature-desc">Scalable solutions across AWS, Azure & GCP ecosystems</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔄</span>
+                    <div class="feature-title">CI/CD Automation</div>
+                    <div class="feature-desc">Streamlined deployments with zero-downtime strategies</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-title">Security Engineering</div>
+                    <div class="feature-desc">Hardening systems & threat hunting methodologies</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <div class="feature-title">Observability Stack</div>
+                    <div class="feature-desc">Real-time monitoring & intelligent alerting systems</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            const milliseconds = Math.floor(now.getMilliseconds() / 10).toString().padStart(2, '0');
+            
+            document.getElementById('currentTime').innerHTML = timeString + '.<span id="milliseconds">' + milliseconds + '</span>';
+        }
+
+        setInterval(updateClock, 10);
+        updateClock();
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 4000);
+        }
+
+        const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        if (!isMobile) {
+            setInterval(createParticle, 400);
+            
+            let terminalTrail = [];
+            document.addEventListener('mousemove', function(e) {
+                terminalTrail.push({x: e.clientX, y: e.clientY, life: 15});
+                terminalTrail = terminalTrail.filter(dot => dot.life > 0);
+                
+                terminalTrail.forEach((dot, index) => {
+                    const trailDot = document.createElement('div');
+                    trailDot.style.position = 'fixed';
+                    trailDot.style.left = dot.x + 'px';
+                    trailDot.style.top = dot.y + 'px';
+                    trailDot.style.width = '3px';
+                    trailDot.style.height = '3px';
+                    trailDot.style.background = `rgba(0, 212, 255, ${dot.life / 15})`;
+                    trailDot.style.borderRadius = '50%';
+                    trailDot.style.pointerEvents = 'none';
+                    trailDot.style.zIndex = '9999';
+                    trailDot.style.boxShadow = `0 0 5px rgba(0, 212, 255, ${dot.life / 20})`;
+                    document.body.appendChild(trailDot);
+                    
+                    dot.life--;
+                    
+                    setTimeout(() => {
+                        if (trailDot.parentNode) {
+                            trailDot.remove();
+                        }
+                    }, 50);
+                });
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            const chars = ['01', '10', '{}', '<>', '/\\', '||', '--', 'λx', 'fn', 'db', 'api', 'tcp'];
+            const numChars = isMobile ? 4 : 8;
+            
+            for (let i = 0; i < numChars; i++) {
+                const char = document.createElement('div');
+                char.textContent = chars[Math.floor(Math.random() * chars.length)];
+                char.style.position = 'fixed';
+                char.style.left = (e.clientX + Math.random() * 80 - 40) + 'px';
+                char.style.top = (e.clientY + Math.random() * 80 - 40) + 'px';
+                char.style.color = '#00d4ff';
+                char.style.fontSize = isMobile ? '11px' : '13px';
+                char.style.fontFamily = 'monospace';
+                char.style.fontWeight = 'bold';
+                char.style.pointerEvents = 'none';
+                char.style.zIndex = '9999';
+                char.style.textShadow = '0 0 10px rgba(0, 212, 255, 0.8)';
+                char.style.animation = 'matrixFall 1.5s ease-out forwards';
+                document.body.appendChild(char);
+                
+                setTimeout(() => {
+                    if (char.parentNode) {
+                        char.remove();
+                    }
+                }, 1500);
+            }
+        });
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes matrixFall {
+                0% {
+                    opacity: 1;
+                    transform: translateY(0) rotate(0deg) scale(1);
+                }
+                50% {
+                    opacity: 0.8;
+                    transform: translateY(50px) rotate(180deg) scale(1.2);
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(120px) rotate(360deg) scale(0.5);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        function animateShapes() {
+            const shapes = document.querySelectorAll('.shape');
+            shapes.forEach((shape, index) => {
+                const randomDelay = Math.random() * 3;
+                const randomDuration = 5 + Math.random() * 3;
+                shape.style.animationDelay = randomDelay + 's';
+                shape.style.animationDuration = randomDuration + 's';
+            });
+        }
+
+        animateShapes();
+
+        // Enhanced heartbeat animation
+        function createHeartbeatBurst() {
+            const monitor = document.querySelector('.system-monitor');
+            if (!monitor) return;
+            
+            const burst = document.createElement('div');
+            burst.style.position = 'absolute';
+            burst.style.top = '50%';
+            burst.style.left = '50%';
+            burst.style.width = '4px';
+            burst.style.height = '4px';
+            burst.style.background = '#ff6b6b';
+            burst.style.borderRadius = '50%';
+            burst.style.transform = 'translate(-50%, -50%)';
+            burst.style.animation = 'burstExpand 2s ease-out forwards';
+            burst.style.pointerEvents = 'none';
+            burst.style.zIndex = '10';
+            monitor.appendChild(burst);
+            
+            setTimeout(() => {
+                if (burst.parentNode) {
+                    burst.remove();
+                }
+            }, 2000);
+        }
+
+        const burstStyle = document.createElement('style');
+        burstStyle.textContent = `
+            @keyframes burstExpand {
+                0% {
+                    width: 4px;
+                    height: 4px;
+                    opacity: 1;
+                    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.8);
+                }
+                50% {
+                    width: 40px;
+                    height: 40px;
+                    opacity: 0.6;
+                    box-shadow: 0 0 0 20px rgba(255, 107, 107, 0.2);
+                }
+                100% {
+                    width: 80px;
+                    height: 80px;
+                    opacity: 0;
+                    box-shadow: 0 0 0 40px rgba(255, 107, 107, 0);
+                }
+            }
+        `;
+        document.head.appendChild(burstStyle);
+
+        // Create heartbeat burst every 2 seconds
+        setInterval(createHeartbeatBurst, 2000);
+
+        // Add responsive behavior
+        window.addEventListener('resize', function() {
+            const newIsMobile = window.innerWidth <= 768;
+            if (newIsMobile !== isMobile) {
+                location.reload(); // Reload to apply mobile optimizations
+            }
+        });
+
+        // Add tech-themed cursor effect for desktop
+        if (!isMobile) {
+            document.addEventListener('mousemove', function(e) {
+                if (Math.random() < 0.05) { // 5% chance
+                    const techChar = document.createElement('div');
+                    const chars = ['◦', '◾', '▪', '▫', '□', '■', '○', '●'];
+                    techChar.textContent = chars[Math.floor(Math.random() * chars.length)];
+                    techChar.style.position = 'fixed';
+                    techChar.style.left = e.clientX + 'px';
+                    techChar.style.top = e.clientY + 'px';
+                    techChar.style.color = 'rgba(0, 212, 255, 0.3)';
+                    techChar.style.fontSize = '8px';
+                    techChar.style.pointerEvents = 'none';
+                    techChar.style.zIndex = '9998';
+                    techChar.style.animation = 'techFade 2s ease-out forwards';
+                    document.body.appendChild(techChar);
+                    
+                    setTimeout(() => {
+                        if (techChar.parentNode) {
+                            techChar.remove();
+                        }
+                    }, 2000);
+                }
+            });
+
+            const techFadeStyle = document.createElement('style');
+            techFadeStyle.textContent = `
+                @keyframes techFade {
+                    0% {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                    100% {
+                        opacity: 0;
+                        transform: translateY(-30px);
+                    }
+                }
+            `;
+            document.head.appendChild(techFadeStyle);
+        }
+    </script>
+</body>
+</html>
